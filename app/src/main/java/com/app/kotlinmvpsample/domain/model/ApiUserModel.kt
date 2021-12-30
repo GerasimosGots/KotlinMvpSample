@@ -13,7 +13,7 @@ data class ApiUserModel(
     @SerializedName("id")
     val id: String,
 
-    @SerializedName("userName")
+    @SerializedName("username")
     val userName: String,
 
     @SerializedName("email")

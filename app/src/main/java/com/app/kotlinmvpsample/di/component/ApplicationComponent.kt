@@ -1,8 +1,11 @@
 package com.app.kotlinmvpsample.di.component
 
 import android.app.Application
+import android.content.Context
 import com.app.kotlinmvpsample.App
+import com.app.kotlinmvpsample.data.repository.UserRepository
 import com.app.kotlinmvpsample.di.module.*
+import com.app.kotlinmvpsample.domain.useCase.UserUseCase
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -19,30 +22,17 @@ import javax.inject.Singleton
         ApplicationModule::class,
         UseCaseModule::class,
         RepositoryModule::class,
-        NetworkModule::class,
-        PresenterModule::class,
-
-        //Activity - Fragments
-        FragmentBuilderModule::class
+        NetworkModule::class
     ]
 )
-interface ApplicationComponent : AndroidInjector<App> {
+interface ApplicationComponent {
+    fun inject() : Application
+    fun context(): Context
 
-    @Component.Builder
-    interface Builder {
+    fun campRepository() : UserRepository
 
-        @BindsInstance
-        fun application(application: Application): Builder
-        fun applicationModule(applicationModule: ApplicationModule): Builder
+    fun campUseCase() : UserUseCase
 
-        fun networkModule(networkModule: NetworkModule): Builder
-        fun repositoryModule(repositoryModule: RepositoryModule): Builder
-
-        fun useCaseModule(useCaseModule: UseCaseModule): Builder
-        fun build(): ApplicationComponent
-    }
-
-    override fun inject(app: App)
     /**
      * - Modules are classes or interfaces that act as collection of instructions for Dagger in how
      * to construct dependencies.

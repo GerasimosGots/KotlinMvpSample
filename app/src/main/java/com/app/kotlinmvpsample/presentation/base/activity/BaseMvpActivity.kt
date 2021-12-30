@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by Gerasimos on 20/11/2021
  */
-abstract class BaseMvpActivity<V : BaseView, P : BasePresenter<V>> : BaseDaggerActivity() {
+abstract class BaseMvpActivity<V : BaseView, P : BasePresenter<V>> : BaseActivity() {
 
     var presenter: P? = null
         @Inject set

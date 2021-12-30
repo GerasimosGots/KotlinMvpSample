@@ -17,6 +17,8 @@ abstract class BaseFragment : Fragment() {
 
     abstract fun getLayoutBinding(fragmentInflateModel: FragmentInflateModel): ViewBinding
 
+    abstract fun setToolbar()
+
     abstract fun onCreateView()
 
     override fun onCreateView(
@@ -27,7 +29,6 @@ abstract class BaseFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         val fragmentInflateModel = provideFragmentInflateModel(inflater, container, false)
-
         getLayoutBinding(fragmentInflateModel).apply {
             binding = this
             return this.root
@@ -37,6 +38,7 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onCreateView()
+        setToolbar()
     }
 
     private fun provideFragmentInflateModel(

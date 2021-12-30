@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/drawable/background_splash.xml" value="0.25435897435897437" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/drawable/drawable_rounded_rect.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/drawable/gradient.xml" value="0.25435897435897437" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/drawable/ic_back_button.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/drawable/rounde_rect.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/drawable/rounded_rect.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/activity_feature.xml" value="0.2421875" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/activity_main.xml" value="0.2421875" />
-        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/activity_user.xml" value="0.1" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/activity_user.xml" value="0.2" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/fragment_blank.xml" value="0.11927083333333334" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/fragment_feature_details.xml" value="0.2421875" />
@@ -13,7 +19,10 @@
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/fragment_second.xml" value="0.2421875" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/fragment_user_details.xml" value="0.2421875" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/fragment_user_list.xml" value="0.2421875" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/layout_custom_toolbar.xml" value="0.1078125" />
         <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/layout/list_item.xml" value="0.2421875" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/menu/menu_main.xml" value="0.1078125" />
+        <entry key="..\:/Users/Gerasimos/Desktop/Android_Projects/Samples/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11302083333333333" />
       </map>
     </option>
   </component>

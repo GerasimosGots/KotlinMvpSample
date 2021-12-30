@@ -13,11 +13,16 @@ import javax.inject.Inject
 /**
  * Created by Gerasimos on 27/11/2021
  */
-abstract class BaseMvpFragment<V : BaseView, P : BasePresenter<V>> : BaseDaggerFragment(),
+abstract class BaseMvpFragment<V : BaseView, P : BasePresenter<V>> : BaseFragment(),
     BaseView {
 
-    protected var presenter: P? = null
+    @Inject
+    fun setBasePresenter(presenter: P) {
+        this.presenter = presenter
+    }
 
+
+    protected var presenter: P? = null
     protected var app: App? = null
 
     override fun onCreateView(
@@ -25,13 +30,13 @@ abstract class BaseMvpFragment<V : BaseView, P : BasePresenter<V>> : BaseDaggerF
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        presenter = injectDependencies()
+        injectDependencies()
         presenter?.onAttachView(this as V)
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    protected abstract fun injectDependencies() : P?
+    protected abstract fun injectDependencies()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

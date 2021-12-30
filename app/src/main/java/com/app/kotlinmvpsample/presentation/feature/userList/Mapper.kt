@@ -4,17 +4,26 @@ import com.app.kotlinmvpsample.domain.useCase.UserModel
 
 /**
  * Created by Gerasimos on 6/12/2021
+ *
+ * Kotlin file with an extension functions
+ * This is a mapper function, converts a collection of UIUserListModel from a collection of UserModel
  */
 
-fun MutableList<UserModel>.toUserListModel(): MutableList<UserListModel> {
-    val list: MutableList<UserListModel> = mutableListOf()
+/**
+ * Extension function that converts UIUserListModel to UIUserListModel
+ *
+ * @param MutableList<UserModel>
+ * @return MutableList<UIUserListModel>
+ */
+fun MutableList<UserModel>.toUserListModel(): MutableList<UIUserListModel> {
+    val listUI: MutableList<UIUserListModel> = mutableListOf()
     this.map {
-        val userListMode = UserListModel(
+        val userListMode = UIUserListModel(
             id = it.id,
             description = it.userName,
             coverImage = it.photoUrl
         )
-        list.add(userListMode)
+        listUI.add(userListMode)
     }
-    return list
+    return listUI
 }

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/cardViewContainer"
     android:foreground="?selectableItemBackground"
     android:theme="@style/CardClickCustomHighlight"
-    app:cardCornerRadius="9dp">
+    app:cardCornerRadius="@dimen/cover_corner_radius"
+    android:layout_marginStart="@dimen/margin8"
+    android:layout_marginEnd="@dimen/margin8"
+    android:layout_marginBottom="@dimen/margin24"
+    app:cardElevation="@dimen/default_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,24 +22,24 @@
         <!--Cover-->
         <ImageView
             android:id="@+id/coverImageView"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:contentDescription="@string/app_name"
-            android:cropToPadding="true"
-            android:scaleType="fitCenter"
-            android:transitionName="shared_view_trans"
+            style="@style/CoverStyle"
+            android:layout_width="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/colorPrimary" />
 
-        <!--Descroption-->
+        <!--Description-->
         <TextView
             android:id="@+id/descriptionTextView"
-            android:layout_width="wrap_content"
+            style="@style/Title.TextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:layout_marginStart="@dimen/margin8"
+            android:paddingBottom="@dimen/margin8"
             android:layout_marginEnd="@dimen/margin16"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/coverImageView"
-            />
+            tools:text="Description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

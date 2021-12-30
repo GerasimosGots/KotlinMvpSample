@@ -1,7 +1,6 @@
 package com.app.kotlinmvpsample.di.module
 
 import com.app.kotlinmvpsample.data.network.SchedulerProvider
-import com.app.kotlinmvpsample.data.network.service.PhotoService
 import com.app.kotlinmvpsample.data.network.service.UserService
 import com.app.kotlinmvpsample.data.repository.UserRepository
 import com.app.kotlinmvpsample.data.repository.UserRepositoryImpl
@@ -18,13 +17,11 @@ class RepositoryModule {
     @Provides
     fun provideUserRepository(
         provider: SchedulerProvider,
-        userService: UserService,
-        photoService: PhotoService
+        userService: UserService
     ): UserRepository {
         return UserRepositoryImpl(
             provider = provider,
-            userService = userService,
-            photoService = photoService
+            userService = userService
         )
     }
 }

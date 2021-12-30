@@ -14,20 +14,17 @@ class UserUseCaseImpl @Inject constructor(private val userRepository: UserReposi
     private var selectedUserId: String? = null
 
     override fun getUserList(): Single<MutableList<UserModel>> {
-
         clearCache()
-        return userRepository.getUserList()
-            .flatMap { apiUserModelList ->
-                val userModelList: MutableList<UserModel> = mutableListOf()
-                apiUserModelList.map { apiUserModel ->
-                    userRepository.getPhotoById(apiUserModel.id).map {
-                        val model = apiUserModel.toUserModel(photo = it.photoUrl)
-                        userModelList.add(model)
-                    }
-                }
-                addToCache(userModelList)
-                Single.just(userModelList)
+
+        return userRepository.getUserList().map { userModelResponseList ->
+            userModelResponseList.map { apiUserModel ->
+                val photoUrl = userRepository.getPhotoById(apiUserModel.id)
+                val userModel = apiUserModel.toUserModel(photoUrl = photoUrl)
+                userModel
+            }.toMutableList().also {
+                addToCache(it)
             }
+        }
     }
 
     override fun selectedUser(id: String) {
@@ -47,8 +44,8 @@ class UserUseCaseImpl @Inject constructor(private val userRepository: UserReposi
         }
     }
 
-    private fun addToCache(userModelList: MutableList<UserModel>) {
-        cachedUserModelList.addAll(userModelList)
+    private fun addToCache(UserModelList: MutableList<UserModel>) {
+        cachedUserModelList.addAll(UserModelList)
     }
 
     private fun clearCache() {

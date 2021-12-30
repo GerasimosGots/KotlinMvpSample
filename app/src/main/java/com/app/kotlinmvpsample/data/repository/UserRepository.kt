@@ -1,6 +1,5 @@
 package com.app.kotlinmvpsample.data.repository
 
-import com.app.kotlinmvpsample.domain.model.ApiPhotoModel
 import com.app.kotlinmvpsample.domain.model.ApiUserModel
 import io.reactivex.Single
 
@@ -10,5 +9,5 @@ import io.reactivex.Single
 interface UserRepository {
     fun getUserList(): Single<MutableList<ApiUserModel>>
 
-    fun getPhotoById(id: String): Single<ApiPhotoModel>
+    fun getPhotoById(id: String): String
 }

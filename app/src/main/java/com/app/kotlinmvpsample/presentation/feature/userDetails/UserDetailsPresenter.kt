@@ -17,7 +17,7 @@ class UserDetailsPresenter @Inject constructor(private val userUseCase: UserUseC
         userUseCase.getSelectedUser()
             .subscribeBy(
                 onSuccess = { userModel ->
-                    view?.onUserModelFetched(userModel = userModel)
+                    view?.onUserModelFetched(UserModel = userModel)
                 },
                 onError = {
                     it.printStackTrace()

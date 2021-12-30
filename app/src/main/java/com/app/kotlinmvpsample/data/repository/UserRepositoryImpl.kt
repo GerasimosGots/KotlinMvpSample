@@ -1,9 +1,8 @@
 package com.app.kotlinmvpsample.data.repository
 
+import com.app.kotlinmvpsample.data.network.ApiClient
 import com.app.kotlinmvpsample.data.network.SchedulerProvider
-import com.app.kotlinmvpsample.data.network.service.PhotoService
 import com.app.kotlinmvpsample.data.network.service.UserService
-import com.app.kotlinmvpsample.domain.model.ApiPhotoModel
 import com.app.kotlinmvpsample.domain.model.ApiUserModel
 import io.reactivex.Single
 import javax.inject.Inject
@@ -13,8 +12,7 @@ import javax.inject.Inject
  */
 class UserRepositoryImpl @Inject constructor(
     private val provider: SchedulerProvider,
-    private val userService: UserService,
-    private val photoService: PhotoService
+    private val userService: UserService
 ) : UserRepository {
 
     override fun getUserList(): Single<MutableList<ApiUserModel>> {
@@ -23,9 +21,15 @@ class UserRepositoryImpl @Inject constructor(
             .subscribeOn(provider.io())
     }
 
-    override fun getPhotoById(id: String): Single<ApiPhotoModel> {
-        return photoService.getPhotoById(photoId = id)
-            .observeOn(provider.ui())
-            .subscribeOn(provider.io())
+    override fun getPhotoById(id: String): String {
+        return getMockImagesById(photoId = id)
+
+    }
+
+    private fun getMockImagesById(photoId: String): String {
+        val photoUrl = ApiClient.SECONDARY_URL
+            .plus(photoId)
+            .plus("/800/900")
+        return photoUrl
     }
 }

@@ -10,19 +10,13 @@ import kotlinx.android.extensions.LayoutContainer
 
 /**
  * Created by Gerasimos on 27/11/2021
+ *
+ * BaseAdapter implementation inspired from a coworker
  */
-abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolder> {
+abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolder>() {
 
-    protected var data: MutableList<T?>
+    protected var data: MutableList<T?> = mutableListOf()
     protected lateinit var context: Context
-
-    constructor() {
-        this.data = mutableListOf()
-    }
-
-    constructor(data: MutableList<T?>) {
-        this.data = data
-    }
 
     abstract fun createItemViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder
 
@@ -48,68 +42,14 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseAdapter<T>.BaseViewHold
         return LayoutInflater.from(context).inflate(id, container, false)
     }
 
-    fun set(data: MutableList<T?>) {
-        this.data = data
-        notifyDataSetChanged()
-    }
-
-    fun set(item: T?) {
-        val index = data.indexOf(item)
-        data[index] = item
-        notifyItemChanged(index)
-    }
-
-    fun set(index: Int, item: T?) {
-        data[index] = item
-        notifyItemChanged(index)
-    }
-
-    fun setNotOptional(data: MutableList<T>) {
+    fun set(data: MutableList<T>) {
         this.data.clear()
         this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun get(): List<T?> {
-        return data
-    }
-
-    fun get(index: Int): T? {
-        return data[index]
-    }
-
-    fun isNullOrEmpty() : Boolean = data.isNullOrEmpty()
-
-    fun appendData(data: List<T?>) {
-        val size = itemCount
-        this.data.addAll(data)
-        notifyItemRangeInserted(size, itemCount)
-    }
-
     fun clearData() {
         data.clear()
         notifyDataSetChanged()
-    }
-
-    fun  addItem(item: T?) {
-        val size = itemCount
-        data.add(item)
-        notifyItemRangeInserted(size, itemCount)
-    }
-
-    fun removeItem(index: Int) {
-        val size = itemCount
-        data.removeAt(index)
-        notifyItemRemoved(index)
-    }
-
-    fun removeItem(item: T?) {
-        val position = data.indexOf(item)
-        data.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun notifyItemChanged(item: T?) {
-        notifyItemChanged(data.indexOf(item))
     }
 }

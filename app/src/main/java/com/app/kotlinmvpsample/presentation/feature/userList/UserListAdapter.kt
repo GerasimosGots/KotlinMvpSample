@@ -11,14 +11,26 @@ import java.lang.ref.WeakReference
 /**
  * Created by Gerasimos on 27/11/2021
  */
-class UserListAdapter constructor(private val weakListener: WeakReference<UserListFragmentContract.Adapter?>?) :
-    BaseAdapter<UserListModel>() {
+class UserListAdapter : BaseAdapter<UIUserListModel>() {
 
+    private var weakListener: WeakReference<UserListFragmentContract.Adapter?>? = null
+
+    /**
+     * Sets tha listener interface
+     * @param weakListener WeakReference<UserListFragmentContract.Adapter>
+     */
+    fun setListener(weakListener: WeakReference<UserListFragmentContract.Adapter?>?) {
+        this.weakListener = weakListener
+    }
+
+    // This method takes an instance of a ViewHolder with our inflated layout
     override fun createItemViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(inflate(R.layout.list_item, parent))
 
     inner class ViewHolder(override val containerView: View) : BaseViewHolder(containerView) {
-        override fun onBindData(item: UserListModel?) {
+
+        // We bind the layout with our model
+        override fun onBindData(item: UIUserListModel?) {
             containerView.coverImageView?.loadImage(url = item?.coverImage ?: "")
             containerView.descriptionTextView?.text = item?.description ?: ""
 
