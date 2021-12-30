@@ -19,4 +19,6 @@ You must use Android Studio
 Clone: git clone https://github.com/GerasimosGots/KotlinMvpSample.git
 Open project by Android Studio and run as usual
 
+# This sample is still under construction
+
 I will be glad to hear your comments!
