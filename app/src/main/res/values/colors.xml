@@ -5,15 +5,15 @@
     <color name="transparent">#4BFFFFFF</color>
 
     <!--Material Basics-->
-    <color name="colorPrimary">#FEFFEA</color>
+    <color name="colorPrimary">#F7F6F2</color>
     <color name="colorPrimaryAlpha">#B3FEFFEA</color>
     <color name="colorSecondary">#C9C9C9</color>
     <color name="colorSecondaryAlpha">#66C9C9C9</color>
     <color name="colorSecondaryDark">#A3A3A3</color>
     <color name="colorTertiary">#424242</color>
-    <color name="colorAccent">#FCFC62</color>
-    <color name="colorAccentVeryLight">#B3FCFCCA</color>
-    <color name="colorAccentLight">#B3FDFD7A</color>
+    <color name="colorAccent">#1565C0</color>
+    <color name="colorAccentVeryLight">#799DC5</color>
+    <color name="colorAccentLight">#377BCA</color>
 
     <!--Text Color-->
     <color name="text_title_color">@color/colorTertiary</color>

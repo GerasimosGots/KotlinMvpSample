@@ -6,16 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.app.kotlinmvpsample.domain.model.ui.FragmentInflateModel
 
 /**
  * Created by Gerasimos on 25/11/2021
+ *
+ * This fragment class extends the the native of the system [Fragment].
+ * This class used only as extension of other class and need a generic parameter of [ViewBinding]
+ * This class is responsible the view inflation/binding.
+ *  - Has an abstract property that needs to return an instance of [ViewBinding]
+ *
+ * The ViewBinding implementation that is been used in Activity and Fragment,
+ * is done based on the following post -> https://chetangupta.net/viewbinding/
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
-    private var binding: ViewBinding? = null
-
-    abstract fun getLayoutBinding(fragmentInflateModel: FragmentInflateModel): ViewBinding
+    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
+    private var _binding: ViewBinding? = null
+    protected val binding: VB
+        get() = _binding as VB
 
     abstract fun setToolbar()
 
@@ -26,13 +34,8 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        val fragmentInflateModel = provideFragmentInflateModel(inflater, container, false)
-        getLayoutBinding(fragmentInflateModel).apply {
-            binding = this
-            return this.root
-        }
+        _binding = bindingInflater.invoke(inflater, container, false)
+        return _binding?.root ?: kotlin.run { view }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,20 +44,8 @@ abstract class BaseFragment : Fragment() {
         setToolbar()
     }
 
-    private fun provideFragmentInflateModel(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        attachToParent: Boolean
-    ): FragmentInflateModel {
-        return FragmentInflateModel(
-            inflater = inflater,
-            container = container,
-            attachToParent = attachToParent
-        )
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 }

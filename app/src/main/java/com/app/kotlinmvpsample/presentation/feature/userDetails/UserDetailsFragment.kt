@@ -1,9 +1,12 @@
 package com.app.kotlinmvpsample.presentation.feature.userDetails
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.app.kotlinmvpsample.R
 import com.app.kotlinmvpsample.databinding.FragmentUserDetailsBinding
+import com.app.kotlinmvpsample.databinding.FragmentUserListBinding
 import com.app.kotlinmvpsample.di.component.ui.DaggerUserDetailsComponent
 import com.app.kotlinmvpsample.di.module.ui.UserDetailsModule
 import com.app.kotlinmvpsample.domain.model.ui.CustomToolbarModel
@@ -18,12 +21,10 @@ import java.lang.ref.WeakReference
  * Created by Gerasimos on 27/11/2021
  */
 class UserDetailsFragment :
-    BaseMvpFragment<UserDetailsContract.View, UserDetailsContract.Presenter>(),
+    BaseMvpFragment<FragmentUserDetailsBinding, UserDetailsContract.View, UserDetailsContract.Presenter>(),
     UserDetailsContract.View, CustomToolbar.BackButtonListener {
 
-    private lateinit var userDetailsBinding: FragmentUserDetailsBinding
-
-    override fun injectDependencies() {
+   override fun injectDependencies() {
         DaggerUserDetailsComponent.builder()
             .applicationComponent(app?.getApplicationComponent())
             .userDetailsModule(UserDetailsModule())
@@ -31,14 +32,7 @@ class UserDetailsFragment :
             .inject(this)
     }
 
-    override fun getLayoutBinding(fragmentInflateModel: FragmentInflateModel): ViewBinding {
-        userDetailsBinding = FragmentUserDetailsBinding.inflate(
-            fragmentInflateModel.inflater,
-            fragmentInflateModel.container,
-            fragmentInflateModel.attachToParent
-        )
-        return userDetailsBinding
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUserDetailsBinding = FragmentUserDetailsBinding::inflate
 
     override fun onCreateView() {
         presenter?.requestSelectedUser()
@@ -46,7 +40,7 @@ class UserDetailsFragment :
 
     override fun setToolbar() {
         val model = CustomToolbarModel(R.string.user_details_title, true)
-        userDetailsBinding.toolbarView.setView(model)
+        binding.toolbarView.setView(model)
     }
 
     override fun onBackButtonCLickListener() {
@@ -58,14 +52,14 @@ class UserDetailsFragment :
     }
 
     private fun setView(UserModel: UserModel) {
-        userDetailsBinding.coverImageView.loadImageWithBottomCorners(UserModel.photoUrl)
-        userDetailsBinding.userNameTextView.text = UserModel.userName
-        userDetailsBinding.emailTextView.text = UserModel.email
-        userDetailsBinding.phoneTextView.text = UserModel.phone
-        userDetailsBinding.ctaButtonView.text = String.format(getString(R.string.cta_text), UserModel.userName)
-        userDetailsBinding.toolbarView.setListener(WeakReference(this))
+        binding.coverImageView.loadImageWithBottomCorners(UserModel.photoUrl)
+        binding.userNameTextView.text = UserModel.userName
+        binding.emailTextView.text = UserModel.email
+        binding.phoneTextView.text = UserModel.phone
+        binding.ctaButtonView.text = String.format(getString(R.string.cta_text), UserModel.userName)
+        binding.toolbarView.setListener(WeakReference(this))
 
-        userDetailsBinding.ctaButtonView.setOnClickListener {
+        binding.ctaButtonView.setOnClickListener {
             context?.let {
                 Toast.makeText(it, R.string.toast_text, Toast.LENGTH_LONG).show()
             }

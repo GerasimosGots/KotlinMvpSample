@@ -3,6 +3,7 @@ package com.app.kotlinmvpsample.presentation.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.app.kotlinmvpsample.R
 import com.app.kotlinmvpsample.databinding.LayoutCustomToolbarBinding
@@ -44,7 +45,7 @@ class CustomToolbar(context: Context, attrs: AttributeSet) : FrameLayout(context
 
     /**
      * Provide a CustomToolbarModel to set the view of CustomToolbar
-     * @param customToolbarModel of type CustomToolbarModel
+     * @param customToolbarModel of type [CustomToolbarModel]
      */
     fun setView(customToolbarModel: CustomToolbarModel) {
         toolbarBinding.titleTextView.text = context?.getString(customToolbarModel.title) ?: ""
@@ -53,7 +54,7 @@ class CustomToolbar(context: Context, attrs: AttributeSet) : FrameLayout(context
 
     /**
      * Sets the Toolbar title
-     * @param title of tyoe String
+     * @param title of type String
      */
     fun setTitle(title: String) {
         toolbarBinding.titleTextView.text = title

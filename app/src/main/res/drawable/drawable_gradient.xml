@@ -6,7 +6,7 @@
             <gradient
                 android:endColor="@color/transparent"
                 android:gradientRadius="3000"
-                android:startColor="@color/colorAccentVeryLight"
+                android:startColor="@color/colorPrimary"
                 android:type="radial" />
         </shape>
     </item>

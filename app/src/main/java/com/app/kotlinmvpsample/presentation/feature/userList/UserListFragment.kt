@@ -1,5 +1,7 @@
 package com.app.kotlinmvpsample.presentation.feature.userList
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
@@ -19,11 +21,9 @@ import java.lang.ref.WeakReference
  * The View has not knowledge of the presenter that it will request data
  */
 class UserListFragment :
-    BaseMvpFragment<UserListFragmentContract.View, UserListFragmentContract.Presenter>(),
+    BaseMvpFragment<FragmentUserListBinding, UserListFragmentContract.View, UserListFragmentContract.Presenter>(),
     UserListFragmentContract.View,
     UserListFragmentContract.Adapter {
-
-    private lateinit var featureListBinding: FragmentUserListBinding
 
     // Lazy initialization of the UserListAdapter
     private val userListAdapter: UserListAdapter by lazy {
@@ -44,32 +44,25 @@ class UserListFragment :
             .inject(this)
     }
 
-    override fun getLayoutBinding(fragmentInflateModel: FragmentInflateModel): ViewBinding {
-        featureListBinding = FragmentUserListBinding.inflate(
-            fragmentInflateModel.inflater,
-            fragmentInflateModel.container,
-            fragmentInflateModel.attachToParent
-        )
-        return featureListBinding
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUserListBinding = FragmentUserListBinding::inflate
 
     override fun setToolbar() {
         val model = CustomToolbarModel(R.string.user_list_title, false)
-        featureListBinding.toolbarView.setView(model)
+        binding.toolbarView.setView(model)
     }
 
     /**
      * Enables Loader
      */
     override fun showLoading() {
-        featureListBinding.loaderView.visible(true)
+        binding.loaderView.visible(true)
     }
 
     /**
      * Dismiss Loader
      */
     override fun dismissLoading() {
-        featureListBinding.loaderView.visible(false)
+        binding.loaderView.visible(false)
     }
 
     override fun onCreateView() {
@@ -78,7 +71,7 @@ class UserListFragment :
 
     /**
      * We fetched the list of Users from presenter
-     * @param UIUserModelList: MutableList<UIUserListModel>
+     * @param UIUserModelList: MutableList<UIUserListModel> [UIUserListModel]
      */
     override fun onUserListFetched(UIUserModelList: MutableList<UIUserListModel>) {
         initAdapter()
@@ -97,7 +90,7 @@ class UserListFragment :
     }
 
     private fun initAdapter() {
-        featureListBinding.userRecyclerView.also {
+        binding.userRecyclerView.also {
             it.adapter = userListAdapter
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
