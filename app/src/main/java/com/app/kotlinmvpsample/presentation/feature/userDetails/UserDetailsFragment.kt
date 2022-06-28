@@ -3,14 +3,11 @@ package com.app.kotlinmvpsample.presentation.feature.userDetails
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.viewbinding.ViewBinding
 import com.app.kotlinmvpsample.R
 import com.app.kotlinmvpsample.databinding.FragmentUserDetailsBinding
-import com.app.kotlinmvpsample.databinding.FragmentUserListBinding
 import com.app.kotlinmvpsample.di.component.ui.DaggerUserDetailsComponent
 import com.app.kotlinmvpsample.di.module.ui.UserDetailsModule
 import com.app.kotlinmvpsample.domain.model.ui.CustomToolbarModel
-import com.app.kotlinmvpsample.domain.model.ui.FragmentInflateModel
 import com.app.kotlinmvpsample.domain.useCase.UserModel
 import com.app.kotlinmvpsample.presentation.base.fragment.BaseMvpFragment
 import com.app.kotlinmvpsample.presentation.presentationExtension.loadImageWithBottomCorners
@@ -32,15 +29,21 @@ class UserDetailsFragment :
             .inject(this)
     }
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUserDetailsBinding = FragmentUserDetailsBinding::inflate
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ) = FragmentUserDetailsBinding.inflate(inflater, container, false)
 
-    override fun onCreateView() {
+    override fun onViewCreated() {
+    }
+
+    override fun initView() {
         presenter?.requestSelectedUser()
     }
 
     override fun setToolbar() {
         val model = CustomToolbarModel(R.string.user_details_title, true)
-        binding.toolbarView.setView(model)
+        binding?.toolbarView?.setView(model)
     }
 
     override fun onBackButtonCLickListener() {
@@ -52,14 +55,14 @@ class UserDetailsFragment :
     }
 
     private fun setView(UserModel: UserModel) {
-        binding.coverImageView.loadImageWithBottomCorners(UserModel.photoUrl)
-        binding.userNameTextView.text = UserModel.userName
-        binding.emailTextView.text = UserModel.email
-        binding.phoneTextView.text = UserModel.phone
-        binding.ctaButtonView.text = String.format(getString(R.string.cta_text), UserModel.userName)
-        binding.toolbarView.setListener(WeakReference(this))
+        binding?.coverImageView?.loadImageWithBottomCorners(UserModel.photoUrl)
+        binding?.userNameTextView?.text = UserModel.userName
+        binding?.emailTextView?.text = UserModel.email
+        binding?.phoneTextView?.text = UserModel.phone
+        binding?.ctaButtonView?.text = String.format(getString(R.string.cta_text), UserModel.userName)
+        binding?.toolbarView?.setListener(WeakReference(this))
 
-        binding.ctaButtonView.setOnClickListener {
+        binding?.ctaButtonView?.setOnClickListener {
             context?.let {
                 Toast.makeText(it, R.string.toast_text, Toast.LENGTH_LONG).show()
             }

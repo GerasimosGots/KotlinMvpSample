@@ -4,13 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.app.kotlinmvpsample.R
 import com.app.kotlinmvpsample.databinding.FragmentUserListBinding
 import com.app.kotlinmvpsample.di.component.ui.DaggerUserListFragmentComponent
 import com.app.kotlinmvpsample.di.module.ui.UserListModule
 import com.app.kotlinmvpsample.domain.model.ui.CustomToolbarModel
-import com.app.kotlinmvpsample.domain.model.ui.FragmentInflateModel
 import com.app.kotlinmvpsample.presentation.base.fragment.BaseMvpFragment
 import com.app.kotlinmvpsample.presentation.presentationExtension.visible
 import java.lang.ref.WeakReference
@@ -44,29 +42,36 @@ class UserListFragment :
             .inject(this)
     }
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUserListBinding = FragmentUserListBinding::inflate
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ) = FragmentUserListBinding.inflate(inflater, container, false)
+
+    override fun onViewCreated() {
+    }
+
+    override fun initView() {
+        presenter?.requestData()
+    }
+
 
     override fun setToolbar() {
         val model = CustomToolbarModel(R.string.user_list_title, false)
-        binding.toolbarView.setView(model)
+        binding?.toolbarView?.setView(model)
     }
 
     /**
      * Enables Loader
      */
     override fun showLoading() {
-        binding.loaderView.visible(true)
+        binding?.loaderView.visible(true)
     }
 
     /**
      * Dismiss Loader
      */
     override fun dismissLoading() {
-        binding.loaderView.visible(false)
-    }
-
-    override fun onCreateView() {
-        presenter?.requestData()
+        binding?.loaderView.visible(false)
     }
 
     /**
@@ -90,9 +95,9 @@ class UserListFragment :
     }
 
     private fun initAdapter() {
-        binding.userRecyclerView.also {
-            it.adapter = userListAdapter
-            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding?.userRecyclerView.also {
+            it?.adapter = userListAdapter
+            it?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
         userListAdapter.setListener(WeakReference(this))
     }

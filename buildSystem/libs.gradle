@@ -1,0 +1,56 @@
+ext {
+
+    core = [
+           ktxCore : "androidx.core:core-ktx:1.8.0",
+           legacy  : "androidx.legacy:legacy-support-v4:1.0.0"
+    ]
+
+    ui = [
+            appCompat   : "androidx.appcompat:appcompat:1.4.2",
+            material    :  "com.google.android.material:material:1.6.1",
+            constrait   : "androidx.constraintlayout:constraintlayout:2.1.4",
+            fragment    : "androidx.fragment:fragment-ktx:1.4.1"
+    ]
+
+    rx = [
+            rxandroid  : "io.reactivex.rxjava2:rxandroid:2.1.1",
+            rxjava     : "io.reactivex.rxjava2:rxjava:2.2.21",
+            extensions : "androidx.lifecycle:lifecycle-extensions:2.2.0",
+            rxkotlin   :   "io.reactivex.rxjava2:rxkotlin:2.4.0"
+    ]
+
+    def nav_version = "2.3.5"
+    navigation = [
+            navFragment : "androidx.navigation:navigation-fragment-ktx:$nav_version",
+            navUi       : "androidx.navigation:navigation-ui-ktx:$nav_version"
+    ]
+
+    retrofit = [
+            //Retrofit
+            retrofit       : "com.squareup.retrofit2:retrofit:2.9.0",
+            adapterRx      : "com.squareup.retrofit2:adapter-rxjava:2.5.0",
+            gsonConvertert : "com.squareup.retrofit2:converter-gson:2.9.0",
+            adapterRx2     : "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0",
+            interceptor    : "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    ]
+
+    dagger = [
+            dagger        : "com.google.dagger:dagger:2.28.3",
+            daggerAndroid : "com.google.dagger:dagger-android-support:2.20",
+    ]
+
+    thirdParties = [
+            glide  : "com.github.bumptech.glide:glide:4.13.0",
+            timber : "com.jakewharton.timber:timber:4.7.1"
+    ]
+
+    allImplementation = [
+           coreLibs         : core.values(),
+           uiLibs           : ui.values(),
+           rxLibs           : rx.values(),
+           navLibs          : navigation.values(),
+           retrofitLibs     : retrofit.values(),
+           daggerLibs       : dagger.values(),
+           thirdPartiesLibs : thirdParties.values()
+    ]
+}

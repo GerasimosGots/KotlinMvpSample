@@ -55,11 +55,6 @@ abstract class BaseMvpFragment<VB : ViewBinding, V : BaseView, P : BasePresenter
         app = activity?.application as App
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        onCreateView()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         presenter?.onDetachView()

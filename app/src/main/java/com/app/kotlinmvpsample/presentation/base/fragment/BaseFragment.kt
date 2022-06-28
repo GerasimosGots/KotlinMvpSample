@@ -20,32 +20,34 @@ import androidx.viewbinding.ViewBinding
  */
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
-    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
-    private var _binding: ViewBinding? = null
-    protected val binding: VB
-        get() = _binding as VB
+    protected var binding: VB? = null
+
+    protected abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
     abstract fun setToolbar()
 
-    abstract fun onCreateView()
+    abstract fun onViewCreated()
+
+    protected abstract fun initView()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = bindingInflater.invoke(inflater, container, false)
-        return _binding?.root ?: kotlin.run { view }
+        binding = getFragmentBinding(inflater, container)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onCreateView()
+        onViewCreated()
+        initView()
         setToolbar()
     }
 
     override fun onDestroyView() {
+        binding = null
         super.onDestroyView()
-        _binding = null
     }
 }

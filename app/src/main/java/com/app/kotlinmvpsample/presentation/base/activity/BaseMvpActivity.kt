@@ -23,8 +23,7 @@ import javax.inject.Inject
  */
 abstract class BaseMvpActivity<VB : ViewBinding, V : BaseView, P : BasePresenter<V>> : BaseActivity<VB>() {
 
-    var presenter: P? = null
-        @Inject set
+    protected var presenter: P? = null
 
     protected abstract fun injectDependencies() : P
 

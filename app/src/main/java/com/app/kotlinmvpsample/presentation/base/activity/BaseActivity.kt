@@ -19,22 +19,21 @@ import com.app.kotlinmvpsample.R
  */
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
-    abstract val bindingInflater: (LayoutInflater) -> VB
-    private var _binding: ViewBinding? = null
-    protected val binding: VB
-        get() = _binding as VB
+    protected var binding: VB? = null
 
-    abstract fun onCreateView()
+    abstract fun getActivityBinding(inflater: LayoutInflater): VB
+
+    private var _binding: ViewBinding? = null
+
+    abstract fun onViewCreated()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_KotlinMvpSample)
+        super.onCreate(savedInstanceState)
 
-        _binding = bindingInflater.invoke(layoutInflater)
-        _binding?.let {
-            setContentView(it.root)
-            onCreateView()
-        }
+        binding = getActivityBinding(layoutInflater)
+        setContentView(binding?.root)
+        onViewCreated()
     }
 
     override fun onDestroy() {
