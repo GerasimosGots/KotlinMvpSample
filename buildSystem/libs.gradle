@@ -1,7 +1,10 @@
 ext {
 
+    def kotlin_version = "1.8.0"
+
+
     core = [
-           ktxCore : "androidx.core:core-ktx:1.8.0",
+           ktxCore : "androidx.core:core-ktx:$kotlin_version",
            legacy  : "androidx.legacy:legacy-support-v4:1.0.0"
     ]
 
@@ -12,6 +15,7 @@ ext {
             fragment    : "androidx.fragment:fragment-ktx:1.4.1"
     ]
 
+    // Rx-Java 2 Dependencies
     rx = [
             rxandroid  : "io.reactivex.rxjava2:rxandroid:2.1.1",
             rxjava     : "io.reactivex.rxjava2:rxjava:2.2.21",
@@ -25,8 +29,8 @@ ext {
             navUi       : "androidx.navigation:navigation-ui-ktx:$nav_version"
     ]
 
+    // Retrofit Dependencies
     retrofit = [
-            //Retrofit
             retrofit       : "com.squareup.retrofit2:retrofit:2.9.0",
             adapterRx      : "com.squareup.retrofit2:adapter-rxjava:2.5.0",
             gsonConvertert : "com.squareup.retrofit2:converter-gson:2.9.0",
@@ -34,6 +38,7 @@ ext {
             interceptor    : "com.squareup.okhttp3:logging-interceptor:4.9.0"
     ]
 
+    // Dagger Dependencies
     dagger = [
             dagger        : "com.google.dagger:dagger:2.28.3",
             daggerAndroid : "com.google.dagger:dagger-android-support:2.20",

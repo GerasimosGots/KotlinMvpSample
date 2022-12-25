@@ -1,45 +1,17 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
-}
-
-apply from: '../buildSystem/libs.gradle'
-
-ext.minVersion = 21
-ext.trgtSdkVersion = 30
+apply from: LibsPath
+apply from: PluginsPath
+apply from: Versioning
 
 android {
 
-    // Configure Version code and number
-    def versionPropsFile = file('version.properties')
-    def versionMinor
-    def versionMajor
-    def versionBuild
-    def versionPatch
-
-    def vCode
-    def vName
-
-    Properties versionProps = new Properties()
-    versionProps.load(new FileInputStream(versionPropsFile))
-    versionMinor = versionProps['VERSION_MINOR'].toInteger()
-    versionMajor = versionProps['VERSION_MAJOR'].toInteger()
-    versionBuild = versionProps['VERSION_BUILD'].toInteger()
-    versionPatch = versionProps['VERSION_PATCH'].toInteger()
-    versionProps.store(versionPropsFile.newWriter(), null)
-
-    vCode = versionMajor.toInteger() * 10000000 + versionMinor.toInteger() * 100000 + versionPatch.toInteger() * 1000 + versionBuild.toInteger()
-    vName = "${versionMinor}.${versionMajor}.${versionBuild}.${versionPatch}"
-
-    compileSdk 31
+    compileSdk rootProject.ext.BUILD_COMPILE_SDK_VERSION
     defaultConfig {
         applicationId "com.app.kotlinmvpsample"
-        minSdkVersion minVersion
-        targetSdk trgtSdkVersion
-        versionCode vCode
-        versionName vName
+        minSdkVersion rootProject.ext.BUILD_MIN_SDK_VERSION
+        targetSdk rootProject.ext.BUILD_TARGET_SDK_VERSION
+
+        versionCode rootProject.ext.VERSION_CODE
+        versionName rootProject.ext.VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,6 +20,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+    }
+
+    // Apk naming
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (outputFileName != null && outputFileName.endsWith(".apk")) {
+                outputFileName = outputFileName.replace('.apk', "-${versionName}-${versionCode}.apk")
+            }
         }
     }
 
@@ -70,7 +56,8 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.21'
 
     //Glide
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
+    // Dependencies Implementation from Libs gradle file
     implementation allImplementation.values()
 }

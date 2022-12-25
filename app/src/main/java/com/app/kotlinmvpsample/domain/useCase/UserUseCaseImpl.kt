@@ -37,7 +37,7 @@ class UserUseCaseImpl @Inject constructor(private val userRepository: UserReposi
         }
 
         val resultList = cachedUserModelList.filter { it.id == selectedUserId }
-        return if (resultList.isNullOrEmpty()) {
+        return if (resultList.isEmpty()) {
             Single.error(Throwable("List is Empty"))
         } else {
             Single.just(resultList[0])

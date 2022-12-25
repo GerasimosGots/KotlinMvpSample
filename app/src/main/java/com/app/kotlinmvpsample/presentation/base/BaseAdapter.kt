@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.extensions.LayoutContainer
+import androidx.viewbinding.ViewBinding
 
 /**
  * Created by Gerasimos on 27/11/2021
@@ -20,8 +20,9 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseAdapter<T>.BaseViewHold
 
     abstract fun createItemViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder
 
-    abstract inner class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        LayoutContainer {
+
+    abstract inner class BaseViewHolder(binding: ViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         abstract fun onBindData(item: T?)
     }
 

@@ -1,11 +1,10 @@
 package com.app.kotlinmvpsample.presentation.feature.userList
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.app.kotlinmvpsample.R
+import com.app.kotlinmvpsample.databinding.ListItemBinding
 import com.app.kotlinmvpsample.presentation.base.BaseAdapter
 import com.app.kotlinmvpsample.presentation.presentationExtension.loadImage
-import kotlinx.android.synthetic.main.list_item.view.*
 import java.lang.ref.WeakReference
 
 /**
@@ -24,19 +23,26 @@ class UserListAdapter : BaseAdapter<UIUserListModel>() {
     }
 
     // This method takes an instance of a ViewHolder with our inflated layout
-    override fun createItemViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(inflate(R.layout.list_item, parent))
+    override fun createItemViewHolder(parent: ViewGroup, viewType: Int) : BaseViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val itemBinding = ListItemBinding.inflate(inflater, parent, false)
+        return ViewHolder(itemBinding)
+    }
 
-    inner class ViewHolder(override val containerView: View) : BaseViewHolder(containerView) {
+    inner class ViewHolder(private val binding: ListItemBinding) : BaseViewHolder(binding) {
 
         // We bind the layout with our model
         override fun onBindData(item: UIUserListModel?) {
-            containerView.coverImageView?.loadImage(url = item?.coverImage ?: "")
-            containerView.descriptionTextView?.text = item?.description ?: ""
+            binding.apply {
 
-            containerView.cardViewContainer?.setOnClickListener {
-                item?.let {
-                    weakListener?.get()?.onCardListClicked(id = it.id)
+                coverImageView.loadImage(url = item?.coverImage ?: "")
+                descriptionTextView.text = item?.description ?: ""
+
+                // Click Listener
+                cardViewContainer.setOnClickListener {
+                    item?.let {
+                        weakListener?.get()?.onCardListClicked(id = it.id)
+                    }
                 }
             }
         }

@@ -35,10 +35,17 @@ class UserDetailsFragment :
     ) = FragmentUserDetailsBinding.inflate(inflater, container, false)
 
     override fun onViewCreated() {
+        presenter?.requestSelectedUser()
     }
 
     override fun initView() {
-        presenter?.requestSelectedUser()
+        binding?.toolbarView?.setListener(WeakReference(this))
+
+        binding?.ctaButtonView?.setOnClickListener {
+            context?.let {
+                Toast.makeText(it, R.string.toast_text, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun setToolbar() {
@@ -51,21 +58,16 @@ class UserDetailsFragment :
     }
 
     override fun onUserModelFetched(UserModel: UserModel) {
-        setView(UserModel = UserModel)
+        setView(userModel = UserModel)
     }
 
-    private fun setView(UserModel: UserModel) {
-        binding?.coverImageView?.loadImageWithBottomCorners(UserModel.photoUrl)
-        binding?.userNameTextView?.text = UserModel.userName
-        binding?.emailTextView?.text = UserModel.email
-        binding?.phoneTextView?.text = UserModel.phone
-        binding?.ctaButtonView?.text = String.format(getString(R.string.cta_text), UserModel.userName)
-        binding?.toolbarView?.setListener(WeakReference(this))
-
-        binding?.ctaButtonView?.setOnClickListener {
-            context?.let {
-                Toast.makeText(it, R.string.toast_text, Toast.LENGTH_LONG).show()
-            }
+    private fun setView(userModel: UserModel) {
+        binding?.apply {
+            coverImageView.loadImageWithBottomCorners(userModel.photoUrl)
+            userNameTextView.text = userModel.userName
+            emailTextView.text = userModel.email
+            phoneTextView.text = userModel.phone
+            ctaButtonView.text = String.format(getString(R.string.cta_text), userModel.userName)
         }
     }
 }

@@ -3,6 +3,7 @@ package com.app.kotlinmvpsample.presentation.base.activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewbinding.ViewBinding
 import com.app.kotlinmvpsample.R
 
@@ -24,6 +25,12 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     abstract fun getActivityBinding(inflater: LayoutInflater): VB
 
     private var _binding: ViewBinding? = null
+
+    protected val navController by lazy {
+        getNavHostFragment().navController
+    }
+
+    abstract fun getNavHostFragment(): NavHostFragment
 
     abstract fun onViewCreated()
 

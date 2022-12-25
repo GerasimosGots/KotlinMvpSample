@@ -23,6 +23,8 @@ class App : Application() {
         Timber.plant(Timber.DebugTree())
     }
 
+
+    // Return a Dagger ApplicationComponent
     fun getApplicationComponent(): ApplicationComponent? {
         if (mApplicationComponent == null) {
             mApplicationComponent = DaggerApplicationComponent.builder()

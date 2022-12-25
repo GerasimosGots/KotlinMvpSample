@@ -48,10 +48,12 @@ class UserListFragment :
     ) = FragmentUserListBinding.inflate(inflater, container, false)
 
     override fun onViewCreated() {
+        presenter?.requestData()
     }
 
     override fun initView() {
-        presenter?.requestData()
+        // View related initializations
+        initAdapter()
     }
 
 
@@ -64,23 +66,22 @@ class UserListFragment :
      * Enables Loader
      */
     override fun showLoading() {
-        binding?.loaderView.visible(true)
+        binding?.loaderView?.visible(true)
     }
 
     /**
      * Dismiss Loader
      */
     override fun dismissLoading() {
-        binding?.loaderView.visible(false)
+        binding?.loaderView?.visible(false)
     }
 
     /**
      * We fetched the list of Users from presenter
      * @param UIUserModelList: MutableList<UIUserListModel> [UIUserListModel]
      */
-    override fun onUserListFetched(UIUserModelList: MutableList<UIUserListModel>) {
-        initAdapter()
-        userListAdapter.set(UIUserModelList)
+    override fun onUserListFetched(modelList: MutableList<UIUserListModel>) {
+        userListAdapter.set(modelList)
     }
 
     /**
@@ -91,13 +92,13 @@ class UserListFragment :
         presenter?.onUserSelected(id = id)
 
         // Navigate to next
-        findNavController(this).navigate(R.id.action_UserList_to_UserDetails)
+        navController.navigate(R.id.action_UserList_to_UserDetails)
     }
 
     private fun initAdapter() {
-        binding?.userRecyclerView.also {
-            it?.adapter = userListAdapter
-            it?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding?.userRecyclerView?.also {
+            it.adapter = userListAdapter
+            it.layoutManager = LinearLayoutManager(it.context, LinearLayoutManager.VERTICAL, false)
         }
         userListAdapter.setListener(WeakReference(this))
     }

@@ -3,7 +3,6 @@ package com.app.kotlinmvpsample.presentation.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.app.kotlinmvpsample.R
 import com.app.kotlinmvpsample.databinding.LayoutCustomToolbarBinding
@@ -19,17 +18,22 @@ import java.lang.ref.WeakReference
  */
 class CustomToolbar(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
-    private val toolbarBinding: LayoutCustomToolbarBinding by lazy {
-        LayoutCustomToolbarBinding.inflate(LayoutInflater.from(context), this, false)
-    }
+    private var toolbarBinding: LayoutCustomToolbarBinding
     private var listener: WeakReference<BackButtonListener?>? = null
 
     init {
-        addView(toolbarBinding.root)
+        val inflater = LayoutInflater.from(context)
+        toolbarBinding = LayoutCustomToolbarBinding.inflate(inflater, this, true)
 
+        initView(attrs = attrs)
+    }
+
+    private fun initView(attrs: AttributeSet) {
         val attributeArray = context.obtainStyledAttributes(attrs, R.styleable.CustomToolbar)
         setTitle(attributeArray.getString(R.styleable.CustomToolbar_title) ?: "")
         attributeArray.recycle()
+
+        // Back Button Click listener
         toolbarBinding.backButtonView.setOnClickListener {
             listener?.get()?.onBackButtonCLickListener()
         }

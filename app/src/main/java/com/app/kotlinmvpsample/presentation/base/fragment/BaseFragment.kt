@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 
 /**
@@ -29,6 +30,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     abstract fun onViewCreated()
 
     protected abstract fun initView()
+
+    // Nav controller, lazy init, Usage for all fragment children, for the navigation
+    protected val navController by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
