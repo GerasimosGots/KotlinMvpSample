@@ -13,6 +13,7 @@ import javax.inject.Singleton
  */
 @Module
 class RepositoryModule {
+
     @Singleton
     @Provides
     fun provideUserRepository(

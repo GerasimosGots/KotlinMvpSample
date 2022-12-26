@@ -2,13 +2,10 @@ package com.app.kotlinmvpsample.di.component
 
 import android.app.Application
 import android.content.Context
-import com.app.kotlinmvpsample.App
 import com.app.kotlinmvpsample.data.repository.UserRepository
 import com.app.kotlinmvpsample.di.module.*
 import com.app.kotlinmvpsample.domain.useCase.UserUseCase
-import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
@@ -29,9 +26,9 @@ interface ApplicationComponent {
     fun inject() : Application
     fun context(): Context
 
-    fun campRepository() : UserRepository
+    fun userRepository() : UserRepository
 
-    fun campUseCase() : UserUseCase
+    fun userUseCase() : UserUseCase
 
     /**
      * - Modules are classes or interfaces that act as collection of instructions for Dagger in how

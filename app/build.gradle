@@ -60,4 +60,7 @@ dependencies {
 
     // Dependencies Implementation from Libs gradle file
     implementation allImplementation.values()
+
+    // Unit testing related dependencies
+    testImplementation unitTesting.values()
 }

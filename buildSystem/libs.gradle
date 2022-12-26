@@ -1,7 +1,8 @@
 ext {
 
+    // Libraries version
     def kotlin_version = "1.8.0"
-
+    def mockitoVersion = "4.5.1"
 
     core = [
            ktxCore : "androidx.core:core-ktx:$kotlin_version",
@@ -47,6 +48,12 @@ ext {
     thirdParties = [
             glide  : "com.github.bumptech.glide:glide:4.13.0",
             timber : "com.jakewharton.timber:timber:4.7.1"
+    ]
+
+    unitTesting = [
+            jUnit           :  "junit:junit:4.13.2",
+            mockitoCore     :  "org.mockito:mockito-core:$mockitoVersion",
+            mockitoInline   :  "org.mockito:mockito-inline:$mockitoVersion"
     ]
 
     allImplementation = [
